@@ -1,9 +1,26 @@
 ﻿@page "/"
+@inject CreditCard_CC_Context dbContext;
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Credit Card Submiter</PageTitle>
 
-<h1>Hello, world!</h1>
+<CreditCardComponent />
 
-Welcome to your new app.
+@*
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+@foreach (var card in dbContext.CreditCards.ToList())
+{
+    <p>@card.Holder</p>
+}
+
+<h3>Suomi </h3>
+<div class="card group h-96 w-96 [perspective:1000px]">
+    <div class="card-inner relative h-full w-full rounded-xl shadow-xl transisition-all duration-500 [transform-style:preserve-3d] [backface-visibility:hidden] group-hover:[transform:rotateY(180deg)]">
+        <div class="card-front absolute inset-0 h-full w-full ">
+            Front
+        </div>
+        <div class="card-back absolute inset-0 h-full w-full rounded-xl bg-black text-red-900 [transform:rotateY(180deg)] [backface-visibility:hidden]">
+            Back
+        </div>
+    </div>
+</div>
+*@
