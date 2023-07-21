@@ -1,19 +1,16 @@
 ﻿@inherits LayoutComponentBase
 
 <PageTitle>CreditCard-CC</PageTitle>
+<header class="bg-slate-200">
+<div class="px-4 w-[80%] mx-auto flex items-center justify-between">
+  <NavLink href="/">
+  <img class="" src="/images/card.svg"/>
+    </NavLink>
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+  <NavLink href="cards">
+    <div>Submitted Cards</div>
+  </NavLink>
 </div>
+</header>
+
+<main class="py-20">@Body</main>
