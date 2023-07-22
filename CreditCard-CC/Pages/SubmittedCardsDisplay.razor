@@ -1,37 +1,39 @@
-﻿@page "/cards"
+@page "/cards"
 @inject CreditCard_CC_Context dbContext;
 
-    @if(CreditCards is not null){
-
-<table class="table-auto w-[70%] rounded-full">
-  <thead>
-    <tr class="bg-gray-100">
-      <th class="px-4 py-2 text-gray-600">ID</th>
-      <th class="px-4 py-2 text-gray-600">Holder</th>
-      <th class="px-4 py-2 text-gray-600">Number</th>
-      <th class="px-4 py-2 text-gray-600">Expiration Date</th>
-      <th class="px-4 py-2 text-gray-600">CVV</th>
+@if (CreditCards is not null)
+{
+    <table class="table-auto w-[70%] rounded-full">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="px-4 py-2 text-gray-600">ID</th>
+                <th class="px-4 py-2 text-gray-600">Holder</th>
+                <th class="px-4 py-2 text-gray-600">Number</th>
+                <th class="px-4 py-2 text-gray-600">Expiration Date</th>
+                <th class="px-4 py-2 text-gray-600">CVV</th>
       <th class="px-4 py-2 text-gray-600">Is Valid</th>
-    </tr>
-  </thead>
-  <tbody>
-        @foreach (var card in CreditCards)
-        {
-        <tr class="bg-white odd:bg-red-100">
-          <td class="border p-2">@card.Id</td>
-          <td class="border p-2">@card.Holder</td>
-          <td class="border p-2">@card.Number</td>
-          <td class="border p-2">@card.Expires</td>
-          <td class="border p-2">@card.CVV</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var card in CreditCards)
+            {
+                <tr class="bg-white odd:bg-red-100">
+                    <td class="border p-2">@card.Id</td>
+                    <td class="border p-2">@card.Holder</td>
+                    <td class="border p-2">@card.Number</td>
+                    <td class="border p-2">@card.Expires</td>
+                    <td class="border p-2">@card.CVV</td>
           <td class="border p-2">@card.IsValidCard()</td>
-        </tr>
-        }
-  </tbody>
-</table>
-    }else{
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
 
-<h3 class="text-3xl"> No cards have been submitted yet</h3>
-    }
+    <h3 class="text-3xl"> No cards have been submitted yet</h3>
+}
 
 
 @code {
