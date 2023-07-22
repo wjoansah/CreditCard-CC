@@ -3,127 +3,93 @@
 @inject CreditCard_CC_Context dbContext;
 @inject NavigationManager navigationManager;
 
-<div class="wrapper px-8 py-8 bg-white rounded-lg">
-    @* group-hover:[transform:rotateY(180deg)] *@
-    <div class="credit-card text-white h-64 group [perspective:3000px]">
-        <div class="card-inner relative h-full w-full rounded-xl shadow-xl transisition-all duration-500 [transform-style:preserve-3d] [backface-visibility:hidden]  @(cardCvvInputInFocus ? "[transform:rotateY(180deg)]": "")">
-            <div class="credit-card-front absolute inset-0 h-full w-full rounded-lg shadow-lg bg-cover bg-[url(/images/background.jpg)] px-3 py-10 flex flex-col gap-2 justify-between">
-                <div class="flex justify-between">
-                    <div class="w-12">
-                        <img src="/images/sticker.png" />
-                    </div>
-                    <div class="w-16 h-12 @(issuerLogo.Contains("discover") ? "w-16": "")">
-                        <img class="object-cover" src=@issuerLogo />
-                    </div>
-
+<div class="credit-card text-white h-64 w-[35%] -mb-16 group [perspective:3000px]">
+    <div class="card-inner relative h-full w-full rounded-xl shadow-xl transisition-all duration-500 [transform-style:preserve-3d] [backface-visibility:hidden]  @(cardCvvInputInFocus ? "[transform:rotateY(180deg)]": "")">
+        <div class="credit-card-front absolute inset-0 h-full w-full rounded-lg shadow-lg bg-cover bg-[url(/images/background.jpg)] px-3 py-10 flex flex-col gap-2 justify-between">
+            <div class="flex justify-between">
+                <div class="w-12">
+                    <img src="/images/sticker.png" />
                 </div>
-                <div class="@(cardNumberInputInFocus ? "border border-white-100 ": "" ) transition-all duration-300 rounded-lg p-2 text-white h-12 flex items-center">
-                    <p>@creditCard.Number</p>
-                    @*<div class="flex items-center justify-around">
-                    <div class="flex ">
-                    @foreach (var num in cardNumber.Substring(0, 4))
-                    {
-                    <span>@num</span>
-                    }
-                    </div>
-
-                    <div>
-                    @foreach (var num in cardNumber.Substring(4, 4))
-                    {
-                    <span>@num</span>
-                    }
-                    </div>
-
-                    <div>
-                    @foreach (var num in cardNumber.Substring(8, 4))
-                    {
-                    <span>@num</span>
-                    }
-                    </div>
-
-                    <div>
-                    @foreach (var num in cardNumber.Substring(12))
-                    {
-                    <span>@num</span>
-                    }
-                    </div>
-                    </div> *@
+                <div class="w-16 h-12 @(issuerLogo.Contains("discover") ? "w-16": "")">
+                    <img class="object-cover" src=@issuerLogo />
                 </div>
-                <div class="flex justify-between gap-2">
-                    <div class="@(cardHolderInputInFocus ? "border border-white": "") transition-all duration-300 p-2 flex-1 rounded-lg">
-                        <p class="text-xs text-normal opacity-50">Card Holder</p>
-                        <p class="uppercase text-sm max-w-[213px] overflow-hidden">@creditCard.Holder</p>
-                    </div>
 
-                    <div class="@(expiresMonthInFocus || expiresYearInFocus ? "border border-white" : "") transition-all duration-300 p-2 rounded-lg">
-                        <p class="text-xs opacity-50">Expires</p>
-                        <p class="text-sm">@expiresMonth / @expiresYear</p>
-                    </div>
-                </div>
             </div>
-
-            <div class="credit-card-back absolute inset-0 h-full w-full [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg shadow-lg bg-cover bg-[url(/images/background.jpg)] px-3 py-10 flex flex-col gap-3 ">
-                <div class=" black bg-black px-2 py-3">
+            <div class="@(cardNumberInputInFocus ? "border border-white-100 ": "" ) transition-all duration-300 rounded-lg p-2 text-white h-12 flex items-center">
+                <p>@creditCard.Number</p>
+                @*<div class="flex items-center justify-around">
+                <div class="flex ">
+                @foreach (var num in cardNumber.Substring(0, 4))
+                {
+                <span>@num</span>
+                }
                 </div>
-                <div class="input">
-                    <p class="text-right text-xs pr-2">CVV</p>
-                    <p class="text-right p-2 text-xs h-8 bg-white text-black">@creditCard.CVV</p>
+
+                <div>
+                @foreach (var num in cardNumber.Substring(4, 4))
+                {
+                <span>@num</span>
+                }
                 </div>
 
-                <div class="self-end">
-                    <img class="w-10" src=@issuerLogo />
+                <div>
+                @foreach (var num in cardNumber.Substring(8, 4))
+                {
+                <span>@num</span>
+                }
+                </div>
+
+                <div>
+                @foreach (var num in cardNumber.Substring(12))
+                {
+                <span>@num</span>
+                }
+                </div>
+                </div> *@
+            </div>
+            <div class="flex justify-between gap-2">
+                <div class="@(cardHolderInputInFocus ? "border border-white": "") transition-all duration-300 p-2 flex-1 rounded-lg">
+                    <p class="text-xs text-normal opacity-50">Card Holder</p>
+                    <p class="uppercase text-sm max-w-[213px] overflow-hidden">@creditCard.Holder</p>
+                </div>
+
+                <div class="@(expiresMonthInFocus || expiresYearInFocus ? "border border-white" : "") transition-all duration-300 p-2 rounded-lg">
+                    <p class="text-xs opacity-50">Expires</p>
+                    <p class="text-sm">@expiresMonth / @expiresYear</p>
                 </div>
             </div>
         </div>
 
+        <div class="credit-card-back absolute inset-0 h-full w-full [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg shadow-lg bg-cover bg-[url(/images/background.jpg)] px-3 py-10 flex flex-col gap-3 ">
+            <div class=" black bg-black px-2 py-3">
+            </div>
+            <div class="input">
+                <p class="text-right text-xs pr-2">CVV</p>
+                <p class="text-right p-2 text-xs h-8 bg-white text-black">@creditCard.CVV</p>
+            </div>
+
+            <div class="self-end">
+                <img class="w-10" src=@issuerLogo />
+            </div>
+        </div>
     </div>
 
+</div>
 
-    @*
-
-    <div class="credit-card absolute rounded-lg top-[-20%] left-[5%] w-[90%] p-4 shadow-lg flex flex-column gap-2 obejct-contain text-white bg-cover bg-[url(/images/background.jpg)]">
-    <div class="flex justify-between">
-    <div class="w-10">
-    <img src="/images/sticker.png" />
-    </div>
-    <div class="w-16">
-    <img class="object-cover" src="/images/visa.png" />
-    </div>
-
-    </div>
-    <div class="border border-white-100 p-2 text-white">
-    #### #### #### ####
-    </div>
-    <div class="flex justify-between gap-2">
-    <div class="border border-white p-2 uppercase flex-1">
-    john doe
-    </div>
-
-    <div class="border border-white p-2">
-    <p class="text-normal">MM/YY</p>
-    </div>
-    </div>
-    </div>
-    *@
-
+<div class="wrapper px-8 py-8 bg-white rounded-lg">
     <EditForm Model="creditCard" OnValidSubmit="SubmitCardAsync" class="pt-16 ">
         <DataAnnotationsValidator />
         <div class="flex flex-col gap-4">
             <div class="card-number flex flex-col ">
                 <label for="card-number">Card Number</label>
-                @*
-                <input @bind="cardNumber" @bind:event="oninput" id="card-number" type="tel" autocomplete="on" pattern="[0-9\s]{13,19}" maxlength="19" class="border border-black-600 p-2 focus:outline-blue-300 focus:shadow-lg" />
-                *@
                 <InputText @bind-Value="creditCard.Number" @oninput="OnCardNumberInput" @onfocusin="ToggleCardNumberFocus" @onfocusout="ToggleCardNumberFocus" class="border border-black-600 p-2 focus:outline-blue-400/50 focus:shadow-lg" @attributes="CardNumberInputAttrs" />
                 <ValidationMessage class="text-xs text-[color:red]" For="@(() =>  creditCard.Number)" />
             </div>
 
             <div class="card-holder flex flex-col">
                 <label for="card-holder">Card Holder</label>
-                @* <input @onchange="OnCardNumberInput" @bind="cardHolder" @bind:event="oninput" id="card-holder" class="border border-black-600 p-2 focus:outline-blue-300 focus:shadow-lg" /> *@
                 <InputText @bind-Value="creditCard.Holder" @onfocusin="ToggleHolderFocus" @onfocusout="ToggleHolderFocus" @oninput="@((e) => creditCard.Holder = e.Value.ToString())" class="border border-black-600 p-2 focus:outline-blue-400/50 focus:shadow-lg" @attributes="CardHolderInputAttrs" />
                 <ValidationMessage class="text-xs text-[color:red]" For="@(() =>  creditCard.Holder)" />
-
             </div>
 
             <div class="card-expires flex items-center gap-2 justify-between">
@@ -146,14 +112,12 @@
                 </div>
                 <div class="flex flex-col">
                     <legend class="text-sm">CVV</legend>
-                    @* <input @bind="cvv" @bind:event="oninput" onfocus="" type="tel" maxlength="4" class="p-2 border border-black-600 focus:outline-blue-300 focus:shadow-lg" /> *@
-
                     <InputText @bind-Value="creditCard.CVV" @onfocusin="ToggleCVVFocus" @onfocusout="ToggleCVVFocus" @oninput="@((e) => creditCard.CVV = e.Value.ToString())" class="border border-black-600 p-2 focus:outline-blue-400/50 focus:shadow-lg" @attributes="CardCVVInputAttrs" />
                     <ValidationMessage class="text-xs text-[color:red]" For="@(() =>  creditCard.CVV)" />
                 </div>
             </div>
 
-            <button type="submit" class="bg-blue-500 p-2 rounded-lg text-white hover:bg-blue-600">
+            <button type="submit" class="bg-blue-500 p-2 rounded-lg text-white hover:bg-blue-600 focus:outline-blue-500">
                 Submit
             </button>
         </div>
@@ -179,7 +143,7 @@
 
     private Dictionary<string, object> CardNumberInputAttrs = new()
     {
-  {"maxlength", "16"}      ,
+     {"maxlength", "19"}      ,
     };
 
     private Dictionary<string, object> CardHolderInputAttrs = new()
@@ -204,22 +168,22 @@
     private void OnCardNumberInput(ChangeEventArgs e)
     {
         CheckIssuer(e);
-        cardNumber = new string(e.Value.ToString().Where(char.IsDigit).ToArray());
-        if (cardNumber.Length > 16)
+        creditCard.Number = new string(e.Value.ToString().Where(char.IsDigit).ToArray());
+        if (creditCard.Number.Length > 16)
         {
-            cardNumber = cardNumber.Substring(0, 16);
+            creditCard.Number = creditCard.Number.Substring(0, 16);
         }
-        if (cardNumber.Length > 4 && cardNumber.Length <= 8)
+        if (creditCard.Number.Length > 4 && creditCard.Number.Length <= 8)
         {
-            cardNumber = string.Format("{0} {1}", cardNumber.Substring(0, 4), cardNumber.Substring(4));
+            creditCard.Number = string.Format("{0} {1}", creditCard.Number.Substring(0, 4), creditCard.Number.Substring(4));
         }
-        if (cardNumber.Length > 8 && cardNumber.Length <= 12)
+        if (creditCard.Number.Length > 8 && creditCard.Number.Length <= 12)
         {
-            cardNumber = string.Format("{0} {1} {2}", cardNumber.Substring(0, 4), cardNumber.Substring(4, 4), cardNumber.Substring(8));
+            creditCard.Number = string.Format("{0} {1} {2}", creditCard.Number.Substring(0, 4), creditCard.Number.Substring(4, 4), creditCard.Number.Substring(8));
         }
-        if (cardNumber.Length > 12 && cardNumber.Length <= 16)
+        if (creditCard.Number.Length > 12 && creditCard.Number.Length <= 16)
         {
-            cardNumber = string.Format("{0} {1} {2} {3}", cardNumber.Substring(0, 4), cardNumber.Substring(4, 4), cardNumber.Substring(8, 4), cardNumber.Substring(12));
+            creditCard.Number = string.Format("{0} {1} {2} {3}", creditCard.Number.Substring(0, 4), creditCard.Number.Substring(4, 4), creditCard.Number.Substring(8, 4), creditCard.Number.Substring(12));
         }
     }
 
@@ -231,26 +195,14 @@
         var currentCardNumber = e.Value.ToString();
 
         if (visaRegex.IsMatch(currentCardNumber))
-        {
-
             issuerLogo = "/images/visa.png";
-        }
-
         else if (masterCardRegex.IsMatch(currentCardNumber))
-        {
             issuerLogo = "/images/mastercard.png";
 
-        }
         else if (discoverRegex.IsMatch(currentCardNumber))
-        {
-
             issuerLogo = "/images/discover.png";
-        }
         else
-        {
-
             issuerLogo = "/images/visa.png";
-        }
         StateHasChanged();
     }
 
