@@ -3,7 +3,7 @@
 
 @if (CreditCards is not null)
 {
-    <table class="table-auto w-[70%] rounded-full">
+    <table class="table-auto w-[70%] rounded-lg">
         <thead>
             <tr class="bg-gray-100">
                 <th class="px-4 py-2 text-gray-600">ID</th>
@@ -29,13 +29,12 @@
 }
 else
 {
-
     <h3 class="text-3xl"> No cards have been submitted yet</h3>
 }
 
 
 @code {
-    private List<CreditCard> CreditCards { get; set; };
+    private List<CreditCard> CreditCards { get; set; }
 
     protected override void OnInitialized()
     {
