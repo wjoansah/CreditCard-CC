@@ -16,7 +16,7 @@
 
             </div>
             <div class="@(cardNumberInputInFocus ? "border border-white-100 ": "" ) transition-all duration-300 rounded-lg p-2 text-white h-12 flex items-center">
-                <p>@creditCard.Number</p>
+                <p>@cardNumber</p>
                 @*<div class="flex items-center justify-around">
                 <div class="flex ">
                 @foreach (var num in cardNumber.Substring(0, 4))
@@ -82,7 +82,7 @@
         <div class="flex flex-col gap-4">
             <div class="card-number flex flex-col ">
                 <label for="card-number">Card Number</label>
-                <InputText @bind-Value="creditCard.Number" @oninput="OnCardNumberInput" @onfocusin="ToggleCardNumberFocus" @onfocusout="ToggleCardNumberFocus" class="border border-black-600 p-2 focus:outline-blue-400/50 focus:shadow-lg" @attributes="CardNumberInputAttrs" />
+                <InputText @bind-Value="cardNumber" @oninput="OnCardNumberInput" @onfocusin="ToggleCardNumberFocus" @onfocusout="ToggleCardNumberFocus" class="border border-black-600 p-2 focus:outline-blue-400/50 focus:shadow-lg" @attributes="CardNumberInputAttrs" />
                 <ValidationMessage class="text-xs text-[color:red]" For="@(() =>  creditCard.Number)" />
             </div>
 
@@ -168,23 +168,24 @@
     private void OnCardNumberInput(ChangeEventArgs e)
     {
         CheckIssuer(e);
-        creditCard.Number = new string(e.Value.ToString().Where(char.IsDigit).ToArray());
-        if (creditCard.Number.Length > 16)
+        cardNumber = new string(e.Value.ToString().Where(char.IsDigit).ToArray());
+        if (cardNumber.Length > 16)
         {
-            creditCard.Number = creditCard.Number.Substring(0, 16);
+            cardNumber = cardNumber.Substring(0, 16);
         }
-        if (creditCard.Number.Length > 4 && creditCard.Number.Length <= 8)
+        if (cardNumber.Length > 4 && cardNumber.Length <= 8)
         {
-            creditCard.Number = string.Format("{0} {1}", creditCard.Number.Substring(0, 4), creditCard.Number.Substring(4));
+            cardNumber = string.Format("{0} {1}", cardNumber.Substring(0, 4), cardNumber.Substring(4));
         }
-        if (creditCard.Number.Length > 8 && creditCard.Number.Length <= 12)
+        if (cardNumber.Length > 8 && cardNumber.Length <= 12)
         {
-            creditCard.Number = string.Format("{0} {1} {2}", creditCard.Number.Substring(0, 4), creditCard.Number.Substring(4, 4), creditCard.Number.Substring(8));
+            cardNumber = string.Format("{0} {1} {2}", cardNumber.Substring(0, 4), cardNumber.Substring(4, 4), cardNumber.Substring(8));
         }
-        if (creditCard.Number.Length > 12 && creditCard.Number.Length <= 16)
+        if (cardNumber.Length > 12 && cardNumber.Length <= 16)
         {
-            creditCard.Number = string.Format("{0} {1} {2} {3}", creditCard.Number.Substring(0, 4), creditCard.Number.Substring(4, 4), creditCard.Number.Substring(8, 4), creditCard.Number.Substring(12));
+            cardNumber = string.Format("{0} {1} {2} {3}", cardNumber.Substring(0, 4), cardNumber.Substring(4, 4), cardNumber.Substring(8, 4), cardNumber.Substring(12));
         }
+         creditCard.Number = cardNumber.Replace(" ", "");
     }
 
     private void CheckIssuer(ChangeEventArgs e)
@@ -256,6 +257,7 @@
         creditCard.CVV = creditCard.CVV;
         creditCard.Expires = $"{expiresMonth}/{expiresYear}";
         creditCard.Holder = creditCard.Holder.Trim();
+        Console.WriteLine(creditCard);
 
         await dbContext.AddAsync(creditCard);
         await dbContext.SaveChangesAsync();
