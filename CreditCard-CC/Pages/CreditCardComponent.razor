@@ -252,7 +252,7 @@
 
     private async void SubmitCardAsync()
     {
-        creditCard.Number = cardNumber.Replace(" ", "");
+        creditCard.Number = creditCard.Number.Replace(" ", "");
         creditCard.CVV = creditCard.CVV;
         creditCard.Expires = $"{expiresMonth}/{expiresYear}";
         creditCard.Holder = creditCard.Holder.Trim();
