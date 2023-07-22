@@ -1,4 +1,4 @@
-@page "/cards"
+﻿@page "/cards"
 @inject CreditCard_CC_Context dbContext;
 
 @if (CreditCards is not null)
@@ -11,7 +11,6 @@
                 <th class="px-4 py-2 text-gray-600">Number</th>
                 <th class="px-4 py-2 text-gray-600">Expiration Date</th>
                 <th class="px-4 py-2 text-gray-600">CVV</th>
-      <th class="px-4 py-2 text-gray-600">Is Valid</th>
             </tr>
         </thead>
         <tbody>
@@ -23,7 +22,6 @@
                     <td class="border p-2">@card.Number</td>
                     <td class="border p-2">@card.Expires</td>
                     <td class="border p-2">@card.CVV</td>
-          <td class="border p-2">@card.IsValidCard()</td>
                 </tr>
             }
         </tbody>
@@ -37,17 +35,11 @@ else
 
 
 @code {
-     private List<CreditCard> CreditCards { get; set; }
+    private List<CreditCard> CreditCards { get; set; };
 
-        protected override void OnInitialized()
-        {
-            CreditCards  = dbContext.CreditCards.ToList();
-            base.OnInitialized();
-        }
-
-        protected override void OnParametersSet()
-        {
-            CreditCards  = dbContext.CreditCards.ToList();
-            base.OnParametersSet();
-        }
+    protected override void OnInitialized()
+    {
+        CreditCards = dbContext.CreditCards.ToList();
+        base.OnInitialized();
+    }
 } 
