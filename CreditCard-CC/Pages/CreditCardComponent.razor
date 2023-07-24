@@ -3,7 +3,7 @@
 @inject CreditCard_CC_Context dbContext;
 @inject NavigationManager navigationManager;
 
-<div class="credit-card text-white h-64 w-[35%] -mb-16 group [perspective:3000px]">
+<div class="credit-card text-white h-64 w-[445px] -mb-16 2xl:-mb-52  group [perspective:3000px]">
     <div class="card-inner relative h-full w-full rounded-xl shadow-xl transisition-all duration-500 [transform-style:preserve-3d] [backface-visibility:hidden]  @(cardCvvInputInFocus ? "[transform:rotateY(180deg)]": "")">
         <div class="credit-card-front absolute inset-0 h-full w-full rounded-lg shadow-lg bg-cover bg-[url(/images/background.jpg)] px-3 py-10 flex flex-col gap-2 justify-between">
             <div class="flex justify-between">
@@ -16,36 +16,35 @@
 
             </div>
             <div class="@(cardNumberInputInFocus ? "border border-white-100 ": "" ) transition-all duration-300 rounded-lg p-2 text-white h-12 flex items-center">
-                <p>@cardNumber</p>
-                @*<div class="flex items-center justify-around">
-                <div class="flex ">
-                @foreach (var num in cardNumber.Substring(0, 4))
-                {
-                <span>@num</span>
-                }
-                </div>
+                <div class="flex items-center justify-between w-[80%] text-xl">
+                    <div class="flex gap-1">
+                        @for (int i = 0; i < 4; ++i)
+                        {
+                            <span>@GetAtIndexOrDefault(creditCard.Number, i)</span>
+                        }
+                    </div>
 
-                <div>
-                @foreach (var num in cardNumber.Substring(4, 4))
-                {
-                <span>@num</span>
-                }
-                </div>
+                    <div class="flex gap-1">
+                        @for (int i = 4; i < 8; ++i)
+                        {
+                            <span>@GetAtIndexOrDefault(creditCard.Number, i)</span>
+                        }
+                    </div>
 
-                <div>
-                @foreach (var num in cardNumber.Substring(8, 4))
-                {
-                <span>@num</span>
-                }
-                </div>
+                    <div class="flex gap-1">
+                        @for (int i = 8; i < 12; ++i)
+                        {
+                            <span>@GetAtIndexOrDefault(creditCard.Number, i)</span>
+                        }
+                    </div>
 
-                <div>
-                @foreach (var num in cardNumber.Substring(12))
-                {
-                <span>@num</span>
-                }
+                    <div class="flex gap-1">
+                        @for (int i = 12; i < 16; ++i)
+                        {
+                            <span>@GetAtIndexOrDefault(creditCard.Number, i)</span>
+                        }
+                    </div>
                 </div>
-                </div> *@
             </div>
             <div class="flex justify-between gap-2">
                 <div class="@(cardHolderInputInFocus ? "border border-white": "") transition-all duration-300 p-2 flex-1 rounded-lg">
@@ -128,11 +127,11 @@
 
 
 @code {
-    private string cardNumber = "#### #### #### ####";
+    private string cardNumber = "################";
     private string expiresMonth = "MM";
     private string expiresYear = "YY";
     private string issuerLogo = "/images/visa.png";
-    private CreditCard creditCard = new();
+    private CreditCard creditCard = new() { Number = new string('#', 16) };
 
     private bool cardNumberInputInFocus = false;
     private bool cardHolderInputInFocus = false;
@@ -185,7 +184,7 @@
         {
             cardNumber = string.Format("{0} {1} {2} {3}", cardNumber.Substring(0, 4), cardNumber.Substring(4, 4), cardNumber.Substring(8, 4), cardNumber.Substring(12));
         }
-         creditCard.Number = cardNumber.Replace(" ", "");
+        creditCard.Number = cardNumber.Replace(" ", "");
     }
 
     private void CheckIssuer(ChangeEventArgs e)
@@ -231,6 +230,18 @@
             yearsList.Add((currentYear + i).ToString());
 
         return yearsList;
+    }
+
+    private string GetAtIndexOrDefault(string value, int index)
+    {
+        try
+        {
+            return value[index].ToString();
+        }
+        catch (Exception)
+        {
+            return "#";
+        }
     }
 
     private void ClearFields()
